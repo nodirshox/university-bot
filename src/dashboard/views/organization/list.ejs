@@ -1,0 +1,32 @@
+<%- include('../includes/header') %>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">University</h3>
+        <div class="card-tools">
+          <ul class="pagination pagination-sm float-right">
+            <li class="page-item"><a class="btn btn-block btn-primary" href="/organization/create" >Add</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% result.map((cat, i) => { %>
+            <tr onclick="location.href='/organization/<%= cat._id %>';" class="mycursor">
+              <td><%= i+1 %>.</td>
+              <td><a href="/organization/<%=cat._id%>"><%= cat.name %></a></a></td>
+            </tr>
+            <%  }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<%- include('../includes/footer') %>

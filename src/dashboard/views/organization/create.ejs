@@ -1,0 +1,24 @@
+<%- include('../includes/header') %>
+<div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">New university</h3>
+      </div>
+
+    <form action="/new-category" method="POST">
+      <div class="card-body">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label>Izoh</label>
+            <input type="text" name="description" class="form-control" autocomplete="off" required>
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../includes/footer') %>

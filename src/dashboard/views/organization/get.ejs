@@ -1,0 +1,20 @@
+<%- include('../includes/header') %>
+      
+<div class="col-md-12">
+  <div class="card card-default">
+    <div class="card-header">
+        <a href="/organization" class="btn-default btn">University</a>
+    </div>
+    <div class="card-body">
+      <b>Name:</b> <%= organization.name %><br />
+      <b>Izoh:</b> <%= organization.description %><br/>
+      <b>Phone:</b> <%= organization.phone %><br/>
+      <b>Website:</b> <%= organization.website %><br/>
+
+      <br>
+      <a href="/edit-category/<%=organization._id%>" class="btn-primary btn">Edit</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../includes/footer') %>

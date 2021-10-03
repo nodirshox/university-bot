@@ -4,7 +4,7 @@
   "description": "Simple telegram bot for listing university names.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "nodemon ./src/index"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,15 @@
   "bugs": {
     "url": "https://github.com/nodirshox/university-bot/issues"
   },
-  "homepage": "https://github.com/nodirshox/university-bot#readme"
+  "homepage": "https://github.com/nodirshox/university-bot#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.8",
+    "telegraf": "^4.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
 }
