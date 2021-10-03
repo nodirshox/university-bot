@@ -1,4 +1,5 @@
 const User = require("../../models/User");
+const { menu } = require("../menu");
 
 exports.contact = async (ctx) => {
     let checkingUser = await User.findOne({telegram_id: ctx.update.message.from.id});
@@ -13,4 +14,13 @@ exports.contact = async (ctx) => {
     }
     
     ctx.reply("Ro'yhatdan o'tdingiz.");
+    return ctx.reply(
+        "Menu",
+        {
+            reply_markup: {
+                keyboard: menu,
+                resize_keyboard: true
+            }
+        }
+    )
 }
