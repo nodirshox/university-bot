@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
     {
-        surname: {
+        first_name: {
             type: String,
             default: ""
         },
-        lastname: {
+        last_name: {
             type: String,
             default: ""
         },
@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
-        phone: {
+        phone_number: {
             type: String,
             default: ""
         },

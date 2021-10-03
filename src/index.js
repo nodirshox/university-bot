@@ -33,3 +33,5 @@ const port = 3000;
 app.listen(port, (err) => {
     console.log("Server has started on: http://localhost:", port);
 });
+
+let bot = require("./bot");
