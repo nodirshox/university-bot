@@ -16,25 +16,30 @@ exports.organization = async (ctx) => {
     }
 
     let organization = await Organization.find(filter, {}, options);
+    let organizationCount = await Organization.countDocuments(filter);
+
     let keyboard = [];
     for (let index = 0; index < organization.length; index++) {
         keyboard.push([{
             text: `${index + 1}. ${organization[index].name}`,
             callback_data: JSON.stringify({
                 action: GET_INFO,
-                id: organization[index]._id,
-            }),
+                id: organization[index].slug,
+            })
         }]);
     }
-    keyboard.push([
-        {
-            text: "▶️",
-            callback_data: JSON.stringify({
-                action: NEXT_PAGE,
-                page: 2,
-            }),
-        }
-    ])
+    if (organizationCount > PAGE_LIMIT) {
+        keyboard.push([
+            {
+                text: "▶️",
+                callback_data: JSON.stringify({
+                    action: NEXT_PAGE,
+                    page: 2,
+                }),
+            }
+        ]);
+    }
+
     return ctx.replyWithMarkdown("Universitetlar ro'yhati", {
         reply_markup: {
             inline_keyboard: keyboard,

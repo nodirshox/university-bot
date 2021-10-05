@@ -3,16 +3,19 @@ const { NEXT_PAGE, PAGE_LIMIT, GET_INFO, ORDER_LIST } = require("../state");
 
 exports.callbackQuery = async (ctx) => {
     const data = JSON.parse(ctx.callbackQuery.data);
+    
     switch (data.action) {
         case NEXT_PAGE: {
             const filter = {
                 deleted_at: null,
                 is_active: true
             };
+
             let skipValue = (data.page - 1) * PAGE_LIMIT;
             if (data.page == 1) {
                 skipValue = 0;
             }
+
             const options = {
                 skip: skipValue,
                 limit: PAGE_LIMIT,
@@ -22,17 +25,19 @@ exports.callbackQuery = async (ctx) => {
             }
         
             let organization = await Organization.find(filter, {}, options);
-            
+            let organizationCount = await Organization.countDocuments(filter);
+
             let keyboard = [];
             for (let index = 0; index < organization.length; index++) {
                 keyboard.push([{
                     text: `${index + 1 + skipValue}. ${organization[index].name}`,
                     callback_data: JSON.stringify({
                         action: GET_INFO,
-                        id: organization[index]._id,
+                        id: organization[index].slug,
                     }),
                 }]);
             }
+
             if (data.page != 1) {
                 keyboard.push([
                     {
@@ -47,7 +52,7 @@ exports.callbackQuery = async (ctx) => {
                 keyboard.push([]);
             }
 
-            if (organization.length == PAGE_LIMIT) {
+            if (organizationCount > data.page * PAGE_LIMIT) {
                 keyboard[keyboard.length - 1].push({
                     text: "▶️",
                     callback_data: JSON.stringify({
@@ -57,9 +62,10 @@ exports.callbackQuery = async (ctx) => {
                 })
             }
 
-            return ctx.editMessageReplyMarkup({
+            await ctx.editMessageReplyMarkup({
                 inline_keyboard: keyboard
-            })
+            });
+            break;
         }
     }
 }
