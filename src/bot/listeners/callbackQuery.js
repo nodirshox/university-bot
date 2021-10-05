@@ -86,7 +86,7 @@ exports.callbackQuery = async (ctx) => {
             const organization = await Organization.findOne(query);
             let message = "Universitet topilmadi";
             if (organization != null) {
-                message = `<b>${organization.name}</b>\n\n${organization.description}\n📞 ${organization.phone}\n🌐 ${organization.website}\n-------<a href="${organization.picture}">&#8205;</a>`;
+                message = `🎓 <b>${organization.name}</b>\n${organization.description}\n📞 ${organization.phone}\n🌐 ${organization.website}\n-------<a href="${organization.picture}">&#8205;</a>`;
             }
             
             await ctx.telegram.deleteMessage(ctx.chat.id, ctx.callbackQuery.message.message_id);

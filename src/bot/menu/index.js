@@ -1,12 +1,22 @@
+const { BTN_UNIVERSITY, BTN_CHANNEL, BTN_GROUP, BTN_HELP } = require("../state");
+
 exports.menu = [
     [
         {
-            text: "Barcha universitetlar"
+            text: BTN_UNIVERSITY
         }
     ],
     [
         {
-            text: "Barcha universitetlar3"
+            text: BTN_CHANNEL
+        },
+        {
+            text: BTN_GROUP
+        }
+    ],
+    [
+        {
+            text: BTN_HELP
         }
     ]
 ]
