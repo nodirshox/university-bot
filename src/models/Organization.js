@@ -1,14 +1,7 @@
 const mongoose = require("mongoose");
-const uuid = require('uuid');
 
 const OrganizationSchema = new mongoose.Schema(
     {
-        _id: { 
-            type: String,
-            default: function genUUID() {
-                return uuid.v4()
-            }
-        },
         type: {
             type: String,
             enum: ["university"],

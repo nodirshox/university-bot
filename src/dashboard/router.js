@@ -23,6 +23,9 @@ router.post('/organization', function (req, res) {
 		...req.body,
 		created_at: new Date()
 	}
+	if (newOrganization.is_active == 'on') {
+		newOrganization.is_active = true;
+	}
 	Organization.create(newOrganization, (err, result) => {
 		if(err) {
 			return res.send({'message': JSON.stringify(err.message)});
