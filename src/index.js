@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require("mongoose");
+const config = require('./config');
 
 // set timezone
 process.env.TZ = "Asia/Tashkent";
@@ -29,7 +30,7 @@ mongoose.connection.once("open", function () {
 // starting dashboard
 let app = require("./dashboard");
 
-const port = 3000;
+const port = config.httpPort;
 app.listen(port, (err) => {
     console.log(`Server has started on: http://localhost:${port}`);
 });

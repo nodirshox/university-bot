@@ -19,9 +19,13 @@ router.get("/organization/create", (req, res) => {
 });
 
 router.post('/organization', function (req, res) {
-	Organization.create(req.body, (err, result) => {
-		if (err) {
-			return res.send('Xatolik yuz berdi.', err.message);
+	let newOrganization = {
+		...req.body,
+		created_at: new Date()
+	}
+	Organization.create(newOrganization, (err, result) => {
+		if(err) {
+			return res.send({'message': JSON.stringify(err.message)});
 		}
 		return res.redirect('/organization');
 	});
@@ -30,7 +34,7 @@ router.post('/organization', function (req, res) {
 router.get('/organization/:id', function (req, res) {
 	Organization.findOne({ _id: req.params.id }).exec(function (err, organization) {
 		if (err) {
-			return res.send('Xatolik yuz berdi')
+			return res.send({'message': JSON.stringify(err.message)});
 		}
 		return res.render("./organization/get", { organization })
 	})
