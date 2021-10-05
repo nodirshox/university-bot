@@ -7,12 +7,17 @@
     </div>
     <div class="card-body">
       <b>Name:</b> <%= organization.name %><br />
-      <b>Izoh:</b> <%= organization.description %><br/>
+      <b>Description:</b> <%= organization.description %><br/>
       <b>Phone:</b> <%= organization.phone %><br/>
       <b>Website:</b> <%= organization.website %><br/>
-
+      <b>Slug:</b> <%= organization.slug%><br/>
+      <b>Active:</b> <%= organization.is_active %><br />
+      <b>Create:</b> <%= created_at %><br />
+      <b>Update:</b> <%= updated_at %><br />
       <br>
-      <a href="/edit-category/<%=organization._id%>" class="btn-primary btn">Edit</a>
+      <a href="/organization/<%=organization._id%>/edit" class="btn-success btn">Edit</a>  <a href="/organization/<%=organization._id%>/delete" class="btn-danger btn">Delete</a>
+      <hr>
+      <img src="<%= organization.picture %>" alt="picture" class="food-images">
     </div>
   </div>
 </div>
