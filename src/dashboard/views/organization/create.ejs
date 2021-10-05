@@ -49,8 +49,19 @@
             <label>Action</label>
             <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
           </div>
-        </div><br/>
-        <a id='add-new-social'>Add social link</a><br>
+        </div>
+        <a id='add-new-social'><i class="fas fa-plus-circle"></i></a><br>
+        <div class="row" id="direction-row-1">
+          <div class="col-10">
+            <label>Direction</label>
+            <input type="text" name="direction[1][name]" class="form-control" autocomplete="off">
+          </div>
+          <div class="col-1">
+            <label>Action</label>
+            <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+          </div>
+        </div>
+        <a id='add-new-direction'><i class="fas fa-plus-circle"></i></a><br>
         <button type='submit' class="btn btn-success">Save</button>
         <a href="/organization" class="btn-default btn">Back</a>
       </div>
@@ -59,20 +70,23 @@
 </div>
 
 <script>
-  let i = 2;
-  let allElements = 1;
+  let social = 2;
+  let allSocials = 1;
+  
+  let direction = 2;
+  let allDirections = 1;
   document.getElementById('add-new-social').onclick = function () {
-      allElements++;
+    allSocials++;
       let template = `
-            <div class="row" id="social-row-${allElements}">
+            <div class="row" id="social-row-${allSocials}">
               <div class="col-5">
                   <label>Social name</label>
-                  <input type="text" name="social[${i}][name]" class="form-control" autocomplete="off" placeholder="Telegram">
+                  <input type="text" name="social[${social}][name]" class="form-control" autocomplete="off" placeholder="Telegram">
               </div>
 
               <div class="col-5">
                   <label>Social link</label>
-                  <input name="social[${i}][link]" class="form-control" autocomplete="off" placeholder="http://t.me/channel">
+                  <input name="social[${social}][link]" class="form-control" autocomplete="off" placeholder="http://t.me/channel">
               </div>
               <div class="col-1">
                   <label>Action</label>
@@ -83,7 +97,27 @@
 
       let container = document.getElementById('social-row-1');
       container.insertAdjacentHTML('afterend', template);
-      i++;
+      social++;
+  }
+  document.getElementById('add-new-direction').onclick = function () {
+      allDirections++;
+      let template = `
+            <div class="row" id="direction-row-${allDirections}">
+              <div class="col-10">
+                  <label>Direction</label>
+                  <input type="text" name="direction[${direction}][name]" class="form-control" autocomplete="off">
+              </div>
+
+              <div class="col-1">
+                  <label>Action</label>
+                  <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+              </div>
+            </div>
+          `;
+
+      let container = document.getElementById('direction-row-1');
+      container.insertAdjacentHTML('afterend', template);
+      direction++;
   }
 </script>
 
