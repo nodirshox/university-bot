@@ -85,15 +85,15 @@ exports.callbackQuery = async (ctx) => {
             }
             const organization = await Organization.findOne(query);
             let message = "Universitet topilmadi";
-            let phone = "";
-            if (organization.phone.length > 0) {
-                phone = `📞 ${organization.phone}\n`;
-            }
-            let website = "";
-            if (organization.website.length > 0) {
-                website = `🌐 ${organization.website}`
-            }
             if (organization != null) {
+                let phone = "";
+                if (organization.phone.length > 0) {
+                    phone = `📞 ${organization.phone}\n`;
+                }
+                let website = "";
+                if (organization.website.length > 0) {
+                    website = `🌐 ${organization.website}`
+                }    
                 message = `🎓 <b>${organization.name}</b>\n${organization.description}\n${phone}${website}\n-------<a href="${organization.picture}">&#8205;</a>`;
             }
             

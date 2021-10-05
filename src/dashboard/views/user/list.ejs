@@ -1,0 +1,28 @@
+<%- include('../includes/header') %>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body p-0">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Create</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% result.map((cat, i) => { %>
+            <tr>
+              <td><%= i+1 %>.</td>
+              <td><%= cat.first_name %> <%= cat.last_name %></td>
+              <td><%= cat.phone_number %></td>
+              <td><%= cat.created_at %></td>
+            </tr>
+            <%  }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<%- include('../includes/footer') %>

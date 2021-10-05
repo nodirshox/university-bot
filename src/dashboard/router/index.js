@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { organizationAPI } = require('./organization');
+const { userAPI } = require('./user');
 
 // Home page
 router.get("/", async (req, res) => {
@@ -15,6 +16,9 @@ router.get('/organization/:id', organizationAPI.get);
 router.get('/organization/:id/edit', organizationAPI.edit);
 router.get('/organization/:id/delete', organizationAPI.delete);
 router.post('/organization/:id/delete', organizationAPI.deleted);
+
+// User
+router.get('/user', userAPI.find);
 
 // Error handler
 router.get('*', function (req, res) {
