@@ -24,16 +24,17 @@ exports.callbackQuery = async (ctx) => {
                 }
             }
         
-            let organization = await Organization.find(filter, {}, options);
+            let organizations = await Organization.find(filter, {}, options);
             let organizationCount = await Organization.countDocuments(filter);
 
             let keyboard = [];
-            for (let index = 0; index < organization.length; index++) {
+            for (let index = 0; index < organizations.length; index++) {
                 keyboard.push([{
-                    text: `${index + 1 + skipValue}. ${organization[index].name}`,
+                    text: `${index + 1 + skipValue}. ${organizations[index].name}`,
                     callback_data: JSON.stringify({
                         action: GET_INFO,
-                        id: organization[index].slug,
+                        id: organizations[index].slug,
+                        page: data.page
                     }),
                 }]);
             }
@@ -61,10 +62,58 @@ exports.callbackQuery = async (ctx) => {
                     })
                 })
             }
-
-            await ctx.editMessageReplyMarkup({
-                inline_keyboard: keyboard
+            let message = "Universitetlar ro'yhati";
+            if (organizationCount == 0) {
+                message += ".\n\nHozircha universitetlar ro'yhati bo'sh."
+            }
+            await ctx.telegram.deleteMessage(ctx.chat.id, ctx.callbackQuery.message.message_id);
+            
+            await ctx.replyWithMarkdown(message, {
+                reply_markup: {
+                    inline_keyboard: keyboard
+                },
+                parse_mode: 'HTML',
             });
+
+            break;
+        }
+        case GET_INFO: {
+            const query = {
+                slug: data.id,
+                deleted_at: null,
+                is_active: true
+            }
+            const organization = await Organization.findOne(query);
+            let message = "Universitet topilmadi";
+            if (organization != null) {
+                message = `<b>${organization.name}</b>\n\n${organization.description}\n📞 ${organization.phone}\n🌐 ${organization.website}\n-------<a href="${organization.picture}">&#8205;</a>`;
+            }
+            
+            await ctx.telegram.deleteMessage(ctx.chat.id, ctx.callbackQuery.message.message_id);
+
+            await ctx.replyWithMarkdown(message, {
+                reply_markup: {
+                    inline_keyboard: [[{
+                        text: 'Ortga',
+                        callback_data: JSON.stringify({
+                            action: NEXT_PAGE,
+                            page: data.page,
+                        }),
+                }]]},
+                parse_mode: 'HTML',
+            });
+            // await ctx.telegram.editMessageText(ctx.update.callback_query.from.id, ctx.update.callback_query.message.message_id, ctx.update.update_id, message, {
+            //     reply_markup: {
+            //         inline_keyboard: [[{
+            //             text: 'Ortga',
+            //             callback_data: JSON.stringify({
+            //                 action: NEXT_PAGE,
+            //                 page: data.page,
+            //             }),
+            //     }]]},
+            //     parse_mode: 'HTML',
+            // });
+
             break;
         }
     }

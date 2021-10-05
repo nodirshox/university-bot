@@ -59,6 +59,10 @@ const OrganizationSchema = new mongoose.Schema(
                 }
             }
         ],
+        picture: {
+            type: String,
+            default: ""
+        },
         is_active: {
             type: Boolean,
             default: false

@@ -15,16 +15,17 @@ exports.organization = async (ctx) => {
         }
     }
 
-    let organization = await Organization.find(filter, {}, options);
+    let organizations = await Organization.find(filter, {}, options);
     let organizationCount = await Organization.countDocuments(filter);
 
     let keyboard = [];
-    for (let index = 0; index < organization.length; index++) {
+    for (let index = 0; index < organizations.length; index++) {
         keyboard.push([{
-            text: `${index + 1}. ${organization[index].name}`,
+            text: `${index + 1}. ${organizations[index].name}`,
             callback_data: JSON.stringify({
                 action: GET_INFO,
-                id: organization[index].slug,
+                id: organizations[index].slug,
+                page: 1
             })
         }]);
     }
@@ -39,11 +40,16 @@ exports.organization = async (ctx) => {
             }
         ]);
     }
+    let message = "Universitetlar ro'yhati";
+    if (organizationCount == 0) {
+        message += ".\n\nHozircha universitetlar ro'yhati bo'sh."
+    }
 
-    return ctx.replyWithMarkdown("Universitetlar ro'yhati", {
+    await ctx.replyWithMarkdown(message, {
         reply_markup: {
             inline_keyboard: keyboard,
-        }
+        },
+        parse_mode: 'HTML',
     })
 
     // multi inline keyboard
