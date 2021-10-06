@@ -92,9 +92,18 @@ exports.callbackQuery = async (ctx) => {
                 }
                 let website = "";
                 if (organization.website.length > 0) {
-                    website = `🌐 ${organization.website}`
-                }    
-                message = `🎓 <b>${organization.name}</b>\n${organization.description}\n${phone}${website}\n-------<a href="${organization.picture}">&#8205;</a>`;
+                    website = `🌐 ${organization.website}\n`
+                }
+                let direction = "<i>Yo'nalishlar:</i>\n";
+                for (let index = 0; index < organization.direction.length; index++) {
+                    direction += `${index + 1}. ${organization.direction[index].name}\n`;
+                }
+
+                let social = "<i>Ijtimoiy tarmoqlar:</i>\n";
+                for (let index = 0; index < organization.social.length; index++) {
+                    social += ` - <a href="${organization.social[index].link}">${organization.social[index].name}</a>\n`
+                }
+                message = `🎓 <b>${organization.name}</b>\n<a href="${organization.picture}">&#8205;</a>${organization.description}\n\n${phone}${website}${direction}\n${social}\n`;
             }
             
             await ctx.telegram.deleteMessage(ctx.chat.id, ctx.callbackQuery.message.message_id);
