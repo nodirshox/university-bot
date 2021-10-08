@@ -17,4 +17,11 @@ bot.catch((err, ctx) => {
     ctx.reply("Xatolik yuz berdi");
 });
 
-bot.launch().then(() => console.log("Bot started"));
+bot.launch(
+    {
+        webhook: {
+            domain: config.website,
+            port: config.botPort
+        }
+    }
+).then(() => console.log("Bot started"));
