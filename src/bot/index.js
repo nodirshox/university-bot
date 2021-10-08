@@ -20,8 +20,8 @@ bot.catch((err, ctx) => {
 bot.launch(
     {
         webhook: {
-            domain: process.env.WEBSITE,
-            port: process.env.PORT
+            domain: config.website,
+            port: config.httpPort
         }
     }
 ).then(() => console.log("Bot started"));
