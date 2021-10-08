@@ -15,8 +15,6 @@ app.use(express.static('public'));
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
-app.use('/', router);
-
 // Bot
 const { Telegraf } = require("telegraf");
 const { commands } = require("../bot/commands");
@@ -35,5 +33,7 @@ bot.catch((err, ctx) => {
     console.log(`Ooops, encountered an error for ${ctx.updateType}`, err);
     ctx.reply("Xatolik yuz berdi");
 });
+
+app.use('/', router);
 
 module.exports = app;
