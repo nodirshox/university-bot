@@ -1,8 +1,9 @@
-require("dotenv").config();
-const express = require("express");
-const config = require("../config");
-var path = require("path");
-var serveStatic = require("serve-static");
+require('dotenv').config();
+const express = require('express');
+const config = require('../config');
+var path = require('path');
+var serveStatic = require('serve-static');
+const router = require('./router');
 
 const app = express();
 app.use(serveStatic(path.join(__dirname, "dist")));
@@ -13,7 +14,6 @@ app.use(express.static(__dirname + "/src/dashboard/public"));
 app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
-const router = require('./router');
 app.use('/', router);
 
 // Bot
