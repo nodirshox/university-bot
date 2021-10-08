@@ -11,9 +11,10 @@ const router = require('./router');
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 
-app.use('public', express.static(__dirname + 'public'));
+app.use('public', express.static(__dirname + '../../public'));
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
+app.use('/', router);
 
 // Bot
 const { Telegraf } = require("telegraf");
@@ -33,7 +34,5 @@ bot.catch((err, ctx) => {
     console.log(`Ooops, encountered an error for ${ctx.updateType}`, err);
     ctx.reply("Xatolik yuz berdi");
 });
-
-app.use('/', router);
 
 module.exports = app;
