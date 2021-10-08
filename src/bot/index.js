@@ -12,4 +12,9 @@ commands(bot);
 hears(bot);
 listeners(bot);
 
+bot.catch((err, ctx) => {
+    console.log(`Ooops, encountered an error for ${ctx.updateType}`, err);
+    ctx.reply("Xatolik yuz berdi");
+});
+
 bot.launch().then(() => console.log("Bot started"));

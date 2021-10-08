@@ -73,4 +73,6 @@ const OrganizationSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("Organization", OrganizationSchema);
+OrganizationSchema.index({'name': 'text', 'slug': 'text'});
+
+module.exports = mongoose.model('Organization', OrganizationSchema);

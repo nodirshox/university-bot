@@ -1,9 +1,5 @@
 const config = {
-	mongoHost: getConf("MONGO_HOST", "localhost"),
-	mongoPort: getConf("MONGO_PORT", "27017"),
-	mongoDatabase: getConf("MONGO_DATABASE", "bot"),
-	mongoUser: getConf("MONGO_USER", "bot"),
-	mongoPassword: getConf("MONGO_PASSWORD", "default"),
+	mongoURL: getConf("MONGO_URL", "mongodb://localhost:27017/bot"),
 	botToken: getConf("BOT_TOKEN", "default"),
 	httpPort: getConf("HTTP_PORT", 3000)
 };

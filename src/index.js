@@ -6,18 +6,16 @@ const config = require('./config');
 process.env.TZ = "Asia/Tashkent";
 
 // Connection with Database
-const mongoDBUrl = "mongodb://localhost:27017/bot";
+console.log("Connecting to db " + config.mongoURL);
 
-console.log("Connecting to db " + mongoDBUrl);
-
-mongoose.connect(mongoDBUrl,
+mongoose.connect(config.mongoURL,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
     },
     (err, client) => {
         if (err) {
-            console.log("There is an error in connecting db (" + mongoDBUrl + "): " + err.message);
+            console.log("There is an error in connecting db (" + config.mongoURL + "): " + err.message);
             process.exit(1);
         }
     }

@@ -92,7 +92,7 @@ exports.callbackQuery = async (ctx) => {
                 }
                 let website = "";
                 if (organization.website.length > 0) {
-                    website = `🌐 ${organization.website}\n`
+                    website = `🌐 <a href="${organization.website}">Websayt</a>\n`
                 }
                 let direction = "<i>Yo'nalishlar:</i>\n";
                 for (let index = 0; index < organization.direction.length; index++) {
@@ -103,33 +103,29 @@ exports.callbackQuery = async (ctx) => {
                 for (let index = 0; index < organization.social.length; index++) {
                     social += ` - <a href="${organization.social[index].link}">${organization.social[index].name}</a>\n`
                 }
-                message = `🎓 <b>${organization.name}</b>\n<a href="${organization.picture}">&#8205;</a>${organization.description}\n\n${phone}${website}${direction}\n${social}\n`;
+                message = `🎓 <b>${organization.name}</b>\n<a href="${organization.picture}">&#8205;</a>${organization.description}\n\n${direction}\n${website}${phone}${social}\n`;
             }
             
             await ctx.telegram.deleteMessage(ctx.chat.id, ctx.callbackQuery.message.message_id);
 
             await ctx.replyWithMarkdown(message, {
                 reply_markup: {
-                    inline_keyboard: [[{
-                        text: 'Ortga',
-                        callback_data: JSON.stringify({
-                            action: NEXT_PAGE,
-                            page: data.page,
-                        }),
-                }]]},
+                    inline_keyboard: [
+                        [{
+                            text: '👉 Do\'stlar bilan ulashish',
+                            switch_inline_query: organization.name
+                        }],
+                        [{
+                            text: 'Ortga',
+                            callback_data: JSON.stringify({
+                                action: NEXT_PAGE,
+                                page: data.page,
+                            }),
+                        }]
+                    ]
+                },
                 parse_mode: 'HTML',
             });
-            // await ctx.telegram.editMessageText(ctx.update.callback_query.from.id, ctx.update.callback_query.message.message_id, ctx.update.update_id, message, {
-            //     reply_markup: {
-            //         inline_keyboard: [[{
-            //             text: 'Ortga',
-            //             callback_data: JSON.stringify({
-            //                 action: NEXT_PAGE,
-            //                 page: data.page,
-            //             }),
-            //     }]]},
-            //     parse_mode: 'HTML',
-            // });
 
             break;
         }
