@@ -12,8 +12,11 @@ app.use(express.static("src/dashboard/public"));
 app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
-const router = require('./router');
-app.use('/', router);
+// const router = require('./router');
+// app.use('/', router);
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 // Bot
 const { Telegraf } = require("telegraf");
