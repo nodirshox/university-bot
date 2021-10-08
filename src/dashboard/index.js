@@ -10,7 +10,7 @@ app.use(serveStatic(path.join(__dirname, "dist")));
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 
-app.use(express.static('./src/dashboard/public'));
+app.use(express.static('public'));
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
