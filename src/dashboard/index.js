@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
-const config = require('../config');
 var path = require('path');
 var serveStatic = require('serve-static');
-const router = require('./router');
+const config = require('../config');
 
 const app = express();
-app.use(serveStatic(path.join(__dirname, "dist")));
+app.use(serveStatic(path.join(__dirname, 'dist')));
+const router = require('./router');
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 
