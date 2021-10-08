@@ -28,7 +28,7 @@ mongoose.connection.once("open", function () {
 // starting dashboard
 let app = require("./dashboard");
 
-const port = config.httpPort;
+const port = process.env.PORT || 3000;
 app.listen(port, (err) => {
     console.log(`Server has started on: http://localhost:${port}`);
 });
