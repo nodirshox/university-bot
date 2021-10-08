@@ -20,9 +20,4 @@ router.post('/organization/:id/delete', organizationAPI.deleted);
 // User
 router.get('/user', userAPI.find);
 
-// Error handler
-router.get('*', function (req, res) {
-	res.render('404');
-});
-
 module.exports = router;
