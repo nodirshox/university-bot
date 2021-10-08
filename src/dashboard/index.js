@@ -11,7 +11,7 @@ const router = require('./router');
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 
-app.use('public', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './public')));
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 app.use('/', router);
@@ -23,8 +23,8 @@ const { hears } = require("../bot/hears");
 const { listeners } = require("../bot/listeners");
 const bot = new Telegraf(config.botToken);
 
-bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
-app.use(bot.webhookCallback(`/bot${config.botToken}`));
+// bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
+// app.use(bot.webhookCallback(`/bot${config.botToken}`));
 
 commands(bot);
 hears(bot);
