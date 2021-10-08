@@ -32,5 +32,3 @@ const port = config.httpPort;
 app.listen(port, (err) => {
     console.log(`Server has started on: http://localhost:${port}`);
 });
-
-let bot = require("./bot");

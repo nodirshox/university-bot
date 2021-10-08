@@ -15,4 +15,24 @@ app.set("view engine", "ejs");
 const router = require('./router');
 app.use('/', router);
 
+// Bot
+const { Telegraf } = require("telegraf");
+const config = require("../config");
+const { commands } = require("../bot/commands");
+const { hears } = require("../bot/hears");
+const { listeners } = require("../bot/listeners");
+const bot = new Telegraf(config.botToken);
+
+bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
+app.use(bot.webhookCallback(`/bot${config.botToken}`));
+
+commands(bot);
+hears(bot);
+listeners(bot);
+
+bot.catch((err, ctx) => {
+    console.log(`Ooops, encountered an error for ${ctx.updateType}`, err);
+    ctx.reply("Xatolik yuz berdi");
+});
+
 module.exports = app;

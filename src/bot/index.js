@@ -17,6 +17,7 @@ bot.catch((err, ctx) => {
     ctx.reply("Xatolik yuz berdi");
 });
 
+
 bot.launch(
     {
         webhook: {
