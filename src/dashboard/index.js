@@ -22,10 +22,8 @@ const { hears } = require("../bot/hears");
 const { listeners } = require("../bot/listeners");
 const bot = new Telegraf(config.botToken);
 
-if (config.mode === 'PRODUCTION') {
-    bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
-    app.use(bot.webhookCallback(`/bot${config.botToken}`));
-}
+bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
+app.use(bot.webhookCallback(`/bot${config.botToken}`));
 
 commands(bot);
 hears(bot);
@@ -36,8 +34,6 @@ bot.catch((err, ctx) => {
     ctx.reply("Xatolik yuz berdi");
 });
 
-if (config.mode === 'DEVELOPMENT') {
-    bot.launch();
-}
+// bot.launch();
 
 module.exports = app;
