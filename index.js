@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require("mongoose");
-const config = require('./config');
+const config = require('./src/config');
 
 // set timezone
 process.env.TZ = "Asia/Tashkent";

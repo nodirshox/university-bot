@@ -4,7 +4,7 @@
   "description": "Simple telegram bot for listing university names.",
   "main": "index.js",
   "scripts": {
-    "watch": "nodemon ./src/index"
+    "watch": "nodemon ./index"
   },
   "repository": {
     "type": "git",
