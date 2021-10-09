@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use('/', router);
 
 // Bot
 const { Telegraf } = require("telegraf");
@@ -34,6 +35,6 @@ bot.catch((err, ctx) => {
     ctx.reply("Xatolik yuz berdi");
 });
 
-app.use('/', router);
+// bot.launch();
 
 module.exports = app;

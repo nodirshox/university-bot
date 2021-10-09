@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { pagesAPI } = require('./pages');
 const { organizationAPI } = require('./organization');
 const { userAPI } = require('./user');
 
 // Home page
-router.get("/", async (req, res) => {
-	res.render("home");
-});
+router.get("/", pagesAPI.home);
 
 // Organization
 router.get("/organization/create", organizationAPI.create);
@@ -19,5 +18,10 @@ router.post('/organization/:id/delete', organizationAPI.deleted);
 
 // User
 router.get('/user', userAPI.find);
+
+// Error handler
+router.get('*', function(req, res) {  
+	res.render('404');
+});
 
 module.exports = router;
