@@ -2,24 +2,24 @@ require('dotenv').config();
 const express = require('express');
 var path = require('path');
 var serveStatic = require('serve-static');
-const config = require('./src/config');
+const config = require('../config');
 
 const app = express();
 app.use(serveStatic(path.join(__dirname, 'dist')));
-const router = require('./src/dashboard/router');
+const router = require('./router');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 
 app.use(express.static('public'));
-app.set('views', 'views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Bot
 const { Telegraf } = require("telegraf");
-const { commands } = require("./src/bot/commands");
-const { hears } = require("./src/bot/hears");
-const { listeners } = require("./src/bot/listeners");
+const { commands } = require("../bot/commands");
+const { hears } = require("../bot/hears");
+const { listeners } = require("../bot/listeners");
 const bot = new Telegraf(config.botToken);
 
 bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
