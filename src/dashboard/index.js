@@ -22,9 +22,6 @@ const { hears } = require("../bot/hears");
 const { listeners } = require("../bot/listeners");
 const bot = new Telegraf(config.botToken);
 
-bot.telegram.setWebhook(`${process.env.WEBSITE}/bot${config.botToken}`);
-app.use(bot.webhookCallback(`/bot${config.botToken}`));
-
 commands(bot);
 hears(bot);
 listeners(bot);
@@ -34,6 +31,11 @@ bot.catch((err, ctx) => {
     ctx.reply("Xatolik yuz berdi");
 });
 
-// bot.launch();
+bot.launch({
+    webhook: {
+        domain: process.env.WEBSITE,
+        port: process.env.PORT
+    }
+});
 
 module.exports = app;
