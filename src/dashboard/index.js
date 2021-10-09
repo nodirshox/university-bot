@@ -31,11 +31,7 @@ bot.catch((err, ctx) => {
     ctx.reply("Xatolik yuz berdi");
 });
 
-bot.launch({
-    webhook: {
-        domain: process.env.WEBSITE,
-        port: process.env.HTTP_PORT
-    }
-});
+app.use(bot.webhookCallback("/bot"));
+bot.telegram.setWebhook(`${process.env.WEBSITE}/bot`);
 
 module.exports = app;
