@@ -1,4 +1,5 @@
 const { Markup } = require("telegraf");
+const config = require('../../config');
 
 exports.group = async (ctx) => {
     ctx.reply("Guruh",
@@ -6,7 +7,7 @@ exports.group = async (ctx) => {
           [
             Markup.button.url(
               "👉 Qo'shilish",
-              "https://t.me/joinchat/RQvA2XcMUMJcJI3z"
+              config.groupInviteLink
             )
           ],
           { columns: 1 }
