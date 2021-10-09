@@ -84,8 +84,20 @@ exports.callbackQuery = async (ctx) => {
                 is_active: true
             }
             const organization = await Organization.findOne(query);
+
+            let keyboard = [[{
+                text: 'Ortga',
+                callback_data: JSON.stringify({
+                    action: NEXT_PAGE,
+                    page: data.page,
+                }),
+            }]];
             let message = "Universitet topilmadi";
             if (organization != null) {
+                keyboard.unshift([{
+                    text: '👉 Do\'stlar bilan ulashish',
+                    switch_inline_query: organization.name
+                }]);
                 let phone = "";
                 if (organization.phone.length > 0) {
                     phone = `📞 ${organization.phone}\n`;
@@ -110,19 +122,7 @@ exports.callbackQuery = async (ctx) => {
 
             await ctx.replyWithMarkdown(message, {
                 reply_markup: {
-                    inline_keyboard: [
-                        [{
-                            text: '👉 Do\'stlar bilan ulashish',
-                            switch_inline_query: organization.name
-                        }],
-                        [{
-                            text: 'Ortga',
-                            callback_data: JSON.stringify({
-                                action: NEXT_PAGE,
-                                page: data.page,
-                            }),
-                        }]
-                    ]
+                    inline_keyboard: keyboard
                 },
                 parse_mode: 'HTML',
             });
