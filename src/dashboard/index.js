@@ -34,7 +34,7 @@ bot.catch((err, ctx) => {
 bot.launch({
     webhook: {
         domain: process.env.WEBSITE,
-        port: process.env.PORT
+        port: process.env.HTTP_PORT
     }
 });
 
