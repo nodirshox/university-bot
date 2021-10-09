@@ -47,7 +47,7 @@
           </div>
           <div class="col-1">
             <label>Action</label>
-            <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+            <a class="btn-default btn" onclick="removeElement('social-row-1');"><i class="fa fa-trash-alt nav_icon"></i></a>
           </div>
         </div>
         <a id='add-new-social'><i class="fas fa-plus-circle"></i></a><br>
@@ -58,7 +58,7 @@
           </div>
           <div class="col-1">
             <label>Action</label>
-            <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+            <a class="btn-default btn" onclick="removeElement('direction-row-1');"><i class="fa fa-trash-alt nav_icon"></i></a>
           </div>
         </div>
         <a id='add-new-direction'><i class="fas fa-plus-circle"></i></a><br>
@@ -90,7 +90,7 @@
               </div>
               <div class="col-1">
                   <label>Action</label>
-                  <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+                  <a class="btn-default btn" onclick="removeElement('social-row-${allSocials}');" ><i class="fa fa-trash-alt nav_icon"></i></a>
               </div>
             </div>
           `;
@@ -110,7 +110,7 @@
 
               <div class="col-1">
                   <label>Action</label>
-                  <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+                  <a class="btn-default btn" onclick="removeElement('direction-row-${allDirections}');"><i class="fa fa-trash-alt nav_icon"></i></a>
               </div>
             </div>
           `;
@@ -118,6 +118,14 @@
       let container = document.getElementById('direction-row-1');
       container.insertAdjacentHTML('afterend', template);
       direction++;
+  }
+  function removeElement(div) {
+    if (div != 'social-row-1') {
+      if (div != 'direction-row-1') {
+        var d = document.getElementById(div);
+        d.remove();
+      }
+    }
   }
 </script>
 

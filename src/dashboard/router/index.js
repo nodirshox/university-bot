@@ -19,6 +19,11 @@ router.post('/organization/:id/delete', organizationAPI.deleted);
 // User
 router.get('/user', userAPI.find);
 
+// Health check
+router.get('/health-check', (req, res) => {
+	res.json({ message: "OK" });
+})
+
 // Error handler
 router.get('*', function(req, res) {  
 	res.render('404');
