@@ -6,98 +6,98 @@
         <h3 class="card-title">Edit</h3>
       </div>
 
-    <form action="/organization" method="POST">
+    <form action="/organization/<%= organization._id %>/edit" method="POST">
       <div class="card-body">
         <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" class="form-control" autocomplete="off" required>
+            <input type="text" name="name" class="form-control" autocomplete="off" value="<%= organization.name %>" required>
         </div>
         <div class="form-group">
             <label>Description</label>
-            <input type="text" name="description" class="form-control" autocomplete="off">
+            <input type="text" name="description" class="form-control" value="<%= organization.description %>" autocomplete="off">
         </div>
         <div class="form-group">
           <label>Phone</label>
-          <input type="text" name="phone" class="form-control" autocomplete="off" placeholder="+998901234567">
+          <input type="text" name="phone" class="form-control" autocomplete="off" placeholder="+998901234567" value="<%= organization.phone %>">
         </div>
         <div class="form-group">
           <label>Website</label>
-          <input type="text" name="website" class="form-control" autocomplete="off" placeholder="http://example.com">
+          <input type="text" name="website" class="form-control" autocomplete="off" placeholder="http://example.com" value="<%= organization.website %>">
         </div>
         <div class="form-group">
           <label>Slug</label>
-          <input type="text" name="slug" class="form-control" autocomplete="off" required>
+          <input type="text" name="slug" class="form-control" autocomplete="off" value="<%= organization.slug %>" required>
         </div>
         <div class="form-group">
           <label>Picture</label>
-          <input type="text" name="Picture" class="form-control" autocomplete="off" placeholder="http://example.com/picture.jpg" required>
+          <input type="text" name="picture" class="form-control" autocomplete="off" placeholder="http://example.com/picture.jpg" value="<%= organization.picture %>" required>
         </div>
         <div class="form-group">
           <label>Active</label><br/>
-          <input type="checkbox" name="is_active" checked="yes">
+          <input type="checkbox" name="is_active" checked>
         </div>
-        <div class="row" id="social-row-1">
+        <% for (let index = 0; index < organization.social.length; index++) { %>
+        <div class="row" id="social-row-<%= index + 1 %>">
           <div class="col-5">
             <label>Social name</label>
-            <input type="text" name="social[1][name]" class="form-control" autocomplete="off" placeholder="Telegram">
+            <input type="text" name="social[<%= index + 1 %>][name]" class="form-control" autocomplete="off" placeholder="Telegram" value="<%= organization.social[index].name %>">
           </div>
           <div class="col-5">
             <label>Social link</label>
-            <input type="text" name="social[1][link]" class="form-control" autocomplete="off" placeholder="http://t.me/channel">
+            <input type="text" name="social[<%= index + 1 %>][link]" class="form-control" autocomplete="off" placeholder="http://t.me/channel" value="<%= organization.social[index].link %>">
           </div>
           <div class="col-1">
             <label>Action</label>
-            <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+            <a class="btn-default btn" onclick="removeElement('social-row-<%= index + 1 %>');"><i class="fa fa-trash-alt nav_icon"></i></a>
           </div>
         </div>
+        <% } %>
         <a id='add-new-social'><i class="fas fa-plus-circle"></i></a><br>
-        <div class="row" id="direction-row-1">
+        <% for (let index = 0; index < organization.direction.length; index++) { %>
+        <div class="row" id="direction-row-<%= index + 1 %>">
           <div class="col-10">
             <label>Direction</label>
-            <input type="text" name="direction[1][name]" class="form-control" autocomplete="off">
+            <input type="text" name="direction[<%= index + 1%>][name]" class="form-control" autocomplete="off" value="<%= organization.direction[index].name %>">
           </div>
           <div class="col-1">
             <label>Action</label>
-            <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+            <a class="btn-default btn" onclick="removeElement('direction-row-<%= index + 1 %>');" ><i class="fa fa-trash-alt nav_icon"></i></a>
           </div>
         </div>
+        <% } %>
         <a id='add-new-direction'><i class="fas fa-plus-circle"></i></a><br>
         <button type='submit' class="btn btn-success">Save</button>
-        <a href="/organization" class="btn-default btn">Back</a>
+        <a href="/organization/<%= organization._id %>" class="btn-default btn">Back</a>
       </div>
     </form>
   </div>
 </div>
 
 <script>
-  let social = 2;
-  let allSocials = 1;
-  
-  let direction = 2;
-  let allDirections = 1;
+  let allSocials = parseInt(10, '<%= organization.social.length %>');
+  let allDirections = parseInt(10, '<%= organization.direction.length %>');
   document.getElementById('add-new-social').onclick = function () {
     allSocials++;
       let template = `
             <div class="row" id="social-row-${allSocials}">
               <div class="col-5">
                   <label>Social name</label>
-                  <input type="text" name="social[${social}][name]" class="form-control" autocomplete="off" placeholder="Telegram">
+                  <input type="text" name="social[${allSocials}][name]" class="form-control" autocomplete="off" placeholder="Telegram">
               </div>
 
               <div class="col-5">
                   <label>Social link</label>
-                  <input name="social[${social}][link]" class="form-control" autocomplete="off" placeholder="http://t.me/channel">
+                  <input name="social[${allSocials}][link]" class="form-control" autocomplete="off" placeholder="http://t.me/channel">
               </div>
               <div class="col-1">
                   <label>Action</label>
-                  <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+                  <a class="btn-default btn" onclick="removeElement('social-row-${allSocials}');"><i class="fa fa-trash-alt nav_icon"></i></a>
               </div>
             </div>
           `;
 
       let container = document.getElementById('social-row-1');
       container.insertAdjacentHTML('afterend', template);
-      social++;
   }
   document.getElementById('add-new-direction').onclick = function () {
       allDirections++;
@@ -105,19 +105,26 @@
             <div class="row" id="direction-row-${allDirections}">
               <div class="col-10">
                   <label>Direction</label>
-                  <input type="text" name="direction[${direction}][name]" class="form-control" autocomplete="off">
+                  <input type="text" name="direction[${allDirections}][name]" class="form-control" autocomplete="off">
               </div>
 
               <div class="col-1">
                   <label>Action</label>
-                  <a class="btn-default btn"><i class="fa fa-trash-alt nav_icon"></i></a>
+                  <a class="btn-default btn" onclick="removeElement('direction-row-${allDirections}');"><i class="fa fa-trash-alt nav_icon"></i></a>
               </div>
             </div>
           `;
 
       let container = document.getElementById('direction-row-1');
       container.insertAdjacentHTML('afterend', template);
-      direction++;
+  }
+  function removeElement(div) {
+    if (div != 'social-row-1') {
+      if (div != 'direction-row-1') {
+        var d = document.getElementById(div);
+        d.remove();
+      }
+    }
   }
 </script>
 

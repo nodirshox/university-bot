@@ -46,8 +46,31 @@ exports.organizationAPI = {
 
         return res.render("./organization/get", { organization, created_at, updated_at })
     },
-    edit: (req, res) => {
-        res.render('./organization/edit', {});
+    edit: async (req, res) => {
+        const filter = {
+            _id: req.params.id,
+            deleted_at: null
+        }
+        const organization = await Organization.findOne(filter);
+
+        res.render('./organization/edit', { organization });
+    },
+    edited: async (req, res) => {
+        const filter = {
+            _id: req.params.id,
+            deleted_at: null
+        }
+        let update = {
+            ...req.body
+        }
+        if (update.is_active == 'on') {
+            update.is_active = true;
+        } else {
+            update.is_active = false;
+        }
+        update.updated_at = new Date();
+        const result = await Organization.findOneAndUpdate(filter, update, { new: true });
+        res.redirect('/organization/'+ req.params.id);
     },
     delete: async (req, res) => {
         const filter = {

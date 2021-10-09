@@ -13,6 +13,7 @@ router.post('/organization', organizationAPI.created);
 router.get("/organization", organizationAPI.find);
 router.get('/organization/:id', organizationAPI.get);
 router.get('/organization/:id/edit', organizationAPI.edit);
+router.post('/organization/:id/edit', organizationAPI.edited);
 router.get('/organization/:id/delete', organizationAPI.delete);
 router.post('/organization/:id/delete', organizationAPI.deleted);
 
