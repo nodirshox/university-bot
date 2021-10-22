@@ -9,7 +9,7 @@
       <b>Name:</b> <%= organization.name %><br />
       <b>Description:</b> <%= organization.description %><br/>
       <b>Phone:</b> <%= organization.phone %><br/>
-      <b>Website:</b> <%= organization.website %><br/>
+      <b>Website:</b> <a href="<%= organization.website %>"><%= organization.website %></a><br/>
       <b>Slug:</b> <%= organization.slug%><br/>
       <b>Active:</b> <%= organization.is_active %><br />
       <b>Create:</b> <%= created_at %><br />
