@@ -1,4 +1,4 @@
-const { BTN_UNIVERSITY, BTN_CHANNEL, BTN_GROUP, BTN_HELP } = require("../state");
+const { BTN_UNIVERSITY, BTN_GROUP, BTN_HELP } = require("../state");
 
 exports.menu = [
     [
@@ -7,9 +7,6 @@ exports.menu = [
         }
     ],
     [
-        {
-            text: BTN_CHANNEL
-        },
         {
             text: BTN_GROUP
         }
