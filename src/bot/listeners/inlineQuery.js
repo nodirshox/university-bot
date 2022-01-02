@@ -53,10 +53,6 @@ exports.inlineQuery = async (ctx) => {
           reply_markup: {
             inline_keyboard: [
               [{
-                text: "👉 Kanalga ulanish",
-                url: "https://t.me/uzbekistan_abt"
-              }],
-              [{
                 text: "👉 Botga ulanish",
                 url: "https://t.me/uzbekistan_abt_bot"
               }]
